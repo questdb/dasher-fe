@@ -1,5 +1,4 @@
-import Auditer from '../components/Auditer';
-
+import Auditor from '../components/Auditor';
 
 // @TODO! Tailor our API call to match our component.
 async function fetchAuditLogs() {
@@ -24,7 +23,7 @@ export default async function AuditPage() {
 
   return (
     <div className="bg-gray-900 text-white h-screen">
-      <Auditer />
+      <Auditor />
     </div>
   );
 }

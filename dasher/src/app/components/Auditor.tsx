@@ -66,7 +66,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Auditer() {
+export default function Auditor() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
