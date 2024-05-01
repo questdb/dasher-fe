@@ -39,7 +39,7 @@ We are evaluating:
 2. How you handle the API
 3. How you handle the page route
 
-There is also a [THOUGHTS.md](/thoughts.md) page.
+There is also a [THOUGHTS.md](thoughts.md) page.
 
 As you go, feel free to write things.
 
