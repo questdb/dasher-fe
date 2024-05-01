@@ -4,6 +4,16 @@ Hey!
 
 Thanks for your interest in joining the team.
 
+The following is designed to take about 2-4 hours.
+
+Or "one solid working block".
+
+There is no deadline.
+
+However, we do have lots of folks applying, so keep that in mind!
+
+Time is of the essence.
+
 ## The task
 
 This exercise is designed to mirror a realistic dev scenario.
