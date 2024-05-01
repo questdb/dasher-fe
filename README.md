@@ -54,7 +54,7 @@ If you have any questions, please reach out to us!
 To submit:
 
 1. Fork this private repository
-2. Submit a PR from your fork to your private branch
+2. Submit a PR from your fork via a private branch
 
 Please ensure the materials remain private!
 
