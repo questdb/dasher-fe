@@ -32,7 +32,9 @@ const secondaryNavigation = [
 
 const statuses = { Completed: 'text-green-400 bg-green-400/10', Error: 'text-rose-400 bg-rose-400/10' }
 
-// @TODO! Let's make this dynamic, and more interesting.
+// @TODO!
+// Let's make this dynamic, and more interesting.
+//
 const stats = [
   { name: 'Number of deploys', value: 'boo' },
   { name: 'Average deploy time', value: 'zerp', unit: 'mins' },
@@ -40,7 +42,10 @@ const stats = [
   { name: 'Success rate', value: 'bleat' },
 ]
 
-// @TODO! The API is churning out data. Let's handle it.
+// @TODO!
+// The API is churning out data. Let's handle it.
+// See src/app/api/audit/route.tsx!
+
 const activityItems = [
   {
     user: {

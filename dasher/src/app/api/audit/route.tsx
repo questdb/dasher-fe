@@ -1,5 +1,8 @@
 import { faker } from '@faker-js/faker';
 
+// An audit log API that supports pagination.
+// Edit as you need.
+
 export async function GET(request) {
   const url = new URL(request.url);
   const limit = parseInt(url.searchParams.get('limit')) || 10;
