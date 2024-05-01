@@ -16,7 +16,7 @@ import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 const navigation = [
   { name: 'Projects', href: '#', icon: FolderIcon, current: false },
   { name: 'Deployments', href: '#', icon: ServerIcon, current: false },
-  { name: 'Activity', href: '#', icon: SignalIcon, current: true },
+  { name: 'Audit Log', href: '#', icon: SignalIcon, current: true },
   { name: 'Domains', href: '#', icon: GlobeAltIcon, current: false },
   { name: 'Usage', href: '#', icon: ChartBarSquareIcon, current: false },
   { name: 'Settings', href: '#', icon: Cog6ToothIcon, current: false },
@@ -26,7 +26,7 @@ const teams = [
 ]
 const secondaryNavigation = [
   { name: 'Overview', href: '#', current: false },
-  { name: 'Activity', href: '#', current: true },
+  { name: 'Audit Log', href: '#', current: true },
   { name: 'Settings', href: '#', current: false },
 ]
 
