@@ -52,7 +52,7 @@ We are evaluating:
 3. How you handle the page route
 4. How you package the PR
 
-There is also a [THOUGHTS.md](thoughts.md) page.
+There is also an **optional** [THOUGHTS.md](thoughts.md) page.
 
 As you go, feel free to write things.
 
