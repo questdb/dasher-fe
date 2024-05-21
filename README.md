@@ -50,6 +50,7 @@ We are evaluating:
 1. What you do with the component
 2. How you handle the API
 3. How you handle the page route
+4. How you package the PR
 
 There is also a [THOUGHTS.md](thoughts.md) page.
 
