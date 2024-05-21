@@ -54,9 +54,7 @@ We are evaluating:
 
 There is also an **optional** [THOUGHTS.md](thoughts.md) page.
 
-As you go, feel free to write things.
-
-Brevity is OK - it's for you to share what's on your mind.
+As you go, feel free to write any interesting thoughts.
 
 If you have any questions, please reach out to us!
 
