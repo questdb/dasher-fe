@@ -65,6 +65,6 @@ To submit:
 1. Fork this private repository
 2. Submit a PR from your fork via a private branch
 
-Please ensure the materials remain private!
+Please ensure the materials remain private.
 
 We want to maintain fairness and anonymity!
