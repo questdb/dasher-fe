@@ -4,6 +4,14 @@ The SaaSiest of all.
 
 ## Start
 
+Setup:
+
+```bash
+npm install
+# or
+yarn
+```
+
 To run development server:
 
 ```bash

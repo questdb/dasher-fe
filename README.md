@@ -25,21 +25,16 @@ The view is located at `localhost:3000/audit`.
 Your mission:
 
 1. Get the app running
-2. Complete the `Auditor` component
-3. Polish the _Audit_ experience
+2. Update the Auditor UI to handle more rows
+ - Can you handle 1000 rows? 100k? 1.5B?
+3. (Stretch goal) Generate stats using row data
+ - Hint: _QuestDB queries_
 
-The component is "dumb" out of the box.
+1000 rows is no problem, but after 100k things get dicey.
 
-It needs data from an API.
+The DOM will explode, and it looks like our table won't cut it.
 
-The API is located at: `src/app/api/routes.tsx`.
-
-It has enough features to inform two main functions in the `Auditor` component:
-
-1. `activityItems`: The flow of audit information
-2. `stats`: Interesting aggregates based on the audit flow
-
-How you handle the data and display these items is up to you.
+How can we improve this? Performance is key!
 
 Look for `@TODO`!
 
@@ -47,9 +42,9 @@ Look for `@TODO`!
 
 We are evaluating:
 
-1. What you do with the component
-2. How you handle the API
-3. How you handle the page route
+1. How you handle the rows
+2. How you constructed your "table"
+3. Did you handle stats? How?
 4. How you package the PR
 
 There is also an **optional** [THOUGHTS.md](thoughts.md) page.

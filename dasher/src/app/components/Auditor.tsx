@@ -1,7 +1,7 @@
 "use client";
 
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react';
+import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import {
   ChartBarSquareIcon,
   Cog6ToothIcon,
@@ -10,8 +10,8 @@ import {
   ServerIcon,
   SignalIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+} from '@heroicons/react/24/outline';
+import { Fragment, useEffect, useState } from 'react';
 
 const navigation = [
   { name: 'Projects', href: '#', icon: FolderIcon, current: false },
@@ -30,36 +30,13 @@ const secondaryNavigation = [
   { name: 'Settings', href: '#', current: false },
 ]
 
-const statuses = { Completed: 'text-green-400 bg-green-400/10', Error: 'text-rose-400 bg-rose-400/10' }
-
-// @TODO!
-// Let's make this dynamic, and more interesting.
-//
+// @TODO! Stretch goal...
+// Can we make this more interesting?
 const stats = [
-  { name: 'Number of deploys', value: 'boo' },
-  { name: 'Average deploy time', value: 'zerp', unit: 'mins' },
-  { name: 'Number of servers', value: 'zergle' },
-  { name: 'Success rate', value: 'bleat' },
-]
-
-// @TODO!
-// The API is churning out data. Let's handle it.
-// See src/app/api/audit/route.tsx!
-
-const activityItems = [
-  {
-    user: {
-      name: 'Questus DBictus',
-      imageUrl:
-        'https://kagi.com/proxy/1593949516558?c=d7Hu1iRd9QOtfcPjG7-7fh0NfssQ6NFvx4iBi22Ev69HnXL0eADQ0g6362_f61eB89dA9ck-hz5JC0QTti6BCYQeR-KVLxB-qQa9kZeEN6nlx17xdbsCd2_IB5XU_QY3jIvCfToBi2d2Pdb_zttoOBdDNSozrdFcV9w7zd-JpIhUEDPzBHbepw22HuBE_-hqMlbaisHrvYiJzc4Mu-UK1I-KqXWLHGW4UiDxP72Ld3ONHznwdr7Aq8vr9kOP5igd',
-    },
-    commit: '2d89f0c8',
-    branch: 'main',
-    status: 'Completed',
-    duration: '25s',
-    date: '45 minutes ago',
-    dateTime: '2023-01-23T11:00',
-  },
+  { name: 'Number of trades', value: 'boo' },
+  { name: 'Average trade size', value: 'zerp', unit: 'USD' },
+  { name: 'Daily volume', value: 'zergle', unit: 'USD' },
+  { name: 'Weekly volume', value: 'bleat', unit: 'USD' },
 ]
 
 function classNames(...classes) {
@@ -68,6 +45,26 @@ function classNames(...classes) {
 
 export default function Auditor() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [activityItems, setActivityItems] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [datasetSize, setDatasetSize] = useState('sample')  // 'sample', '1k', '100k', 'full'
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoading(true)
+        const response = await fetch(`/api/audit?size=${datasetSize}`)
+        const data = await response.json()
+        setActivityItems(data.items || [])
+        setLoading(false)
+      } catch (err) {
+        setError(err.message)
+        setLoading(false)
+      }
+    }
+    fetchData()
+  }, [datasetSize])
 
   return (
     <>
@@ -320,14 +317,40 @@ export default function Auditor() {
                       <span className="font-semibold text-white">Audit Log</span>
                     </h1>
                   </div>
-                  <p className="mt-2 text-xs leading-6 text-gray-400">Peepin' on people</p>
+                  <p className="mt-2 text-xs leading-6 text-gray-400">Viewing trade data</p>
                 </div>
-                <div className="order-first flex-none rounded-full bg-indigo-400/10 px-2 py-1 text-xs font-medium text-indigo-400 ring-1 ring-inset ring-indigo-400/30 sm:order-none">
-                  Production
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setDatasetSize('1k')}
+                    className={`rounded-md px-3 py-2 text-sm font-semibold text-white ${datasetSize === '1k'
+                        ? 'bg-indigo-700 cursor-default'
+                        : 'bg-indigo-500 hover:bg-indigo-400'
+                      }`}
+                  >
+                    Load 1K Rows
+                  </button>
+                  <button
+                    onClick={() => setDatasetSize('100k')}
+                    className={`rounded-md px-3 py-2 text-sm font-semibold text-white ${datasetSize === '100k'
+                        ? 'bg-indigo-700 cursor-default'
+                        : 'bg-indigo-500 hover:bg-indigo-400'
+                      }`}
+                  >
+                    Load 100K Rows
+                  </button>
+                  <button
+                    onClick={() => setDatasetSize('full')}
+                    className={`rounded-md px-3 py-2 text-sm font-semibold text-white ${datasetSize === 'full'
+                        ? 'bg-indigo-700 cursor-default'
+                        : 'bg-indigo-500 hover:bg-indigo-400'
+                      }`}
+                  >
+                    Load All Rows
+                  </button>
                 </div>
               </div>
 
-              {/* @TODO! Let's pull in our stats here. */}
+              {/* @TODO! Any cool stats to display? */}
               <div className="grid grid-cols-1 bg-gray-700/10 sm:grid-cols-2 lg:grid-cols-4">
                 {stats.map((stat, statIdx) => (
                   <div
@@ -347,12 +370,70 @@ export default function Auditor() {
               </div>
             </header>
 
-            {/* @TODO! Let's pull in our API data. */}
-
             <div className="border-t border-white/10 pt-11">
               <h2 className="px-4 text-base font-semibold leading-7 text-white sm:px-6 lg:px-8">Latest activity</h2>
-              <table className="mt-6 w-full whitespace-nowrap text-left">
-              </table>
+              {/* @TODO! 
+                - Implement virtualization to handle >1.5B rows efficiently
+                - Consider using react-virtual or similar library
+                - Current implementation only shows first page of results
+              */}
+              <div className="mt-6 overflow-hidden">
+                <table className="w-full border-collapse border-spacing-0">
+                  <thead>
+                    <tr>
+                      <th className="py-3.5 pl-4 pr-8 text-left text-sm font-semibold text-white sm:pl-6 lg:pl-8">
+                        Timestamp
+                      </th>
+                      <th className="py-3.5 pl-0 pr-8 text-left text-sm font-semibold text-white">
+                        Symbol
+                      </th>
+                      <th className="py-3.5 pl-0 pr-8 text-left text-sm font-semibold text-white">
+                        Price
+                      </th>
+                      <th className="py-3.5 pl-0 pr-8 text-left text-sm font-semibold text-white">
+                        Amount
+                      </th>
+                      <th className="py-3.5 pl-0 pr-8 text-left text-sm font-semibold text-white">
+                        Side
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {loading ? (
+                      <tr>
+                        <td colSpan={5} className="py-12 pl-4 text-center text-sm">
+                          <div className="flex flex-col items-center justify-center space-y-3">
+                            <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-indigo-500"></div>
+                            <div className="text-gray-400">Loading {datasetSize} records...</div>
+                          </div>
+                        </td>
+                      </tr>
+                    ) : (
+                      activityItems.map((item) => (
+                        <tr key={item.timestamp}>
+                          <td className="py-4 pl-4 pr-8 text-sm sm:pl-6 lg:pl-8">
+                            <div className="flex items-center gap-x-4">
+                              <div className="truncate text-white">{new Date(item.timestamp).toLocaleString()}</div>
+                            </div>
+                          </td>
+                          <td className="py-4 pl-0 pr-8 text-sm text-gray-400">
+                            {item.symbol}
+                          </td>
+                          <td className="py-4 pl-0 pr-8 text-sm text-gray-400">
+                            ${item.price.toFixed(2)}
+                          </td>
+                          <td className="py-4 pl-0 pr-8 text-sm text-gray-400">
+                            {item.amount}
+                          </td>
+                          <td className="py-4 pl-0 pr-8 text-sm text-gray-400">
+                            {item.side}
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </main>
         </div>
