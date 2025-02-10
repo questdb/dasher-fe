@@ -57,9 +57,40 @@ If you have any questions, please reach out to us!
 
 To submit:
 
-1. Fork this private repository
-2. Submit a PR from your fork via a private branch
+1. **Clone the repo**
+   ```sh
+   git clone https://github.com/questdb/dasher-fe.git
+   cd dasher-fe
+   ```
 
-Please ensure the materials remain private.
+2. **Create a new branch**
+   ```sh
+   git checkout -b my-solution
+   ```
 
-We want to maintain fairness and anonymity!
+3. **Implement your solution**
+
+4. **Commit your changes**
+   ```sh
+   git add .
+   git commit -m "My solution"
+   ```
+
+5. **Generate a patch file**
+   ```sh
+   git format-patch main --stdout > my-solution.patch
+   ```
+   - This creates a patch file with all changes made since the `main` branch.
+   - Alternatively, if you want to submit only your last commit:
+     ```sh
+     git format-patch -1 HEAD --stdout > my-solution.patch
+     ```
+
+6. **Submit your patch**
+   - Email us `my-solution.patch`!
+
+### ⚠️ Important Notes
+- Please **do not** push your solution to a public repository
+- Ensure your patch file includes only necessary changes
+
+Good luck! 🚀
