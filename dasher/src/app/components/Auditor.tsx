@@ -323,8 +323,8 @@ export default function Auditor() {
                   <button
                     onClick={() => setDatasetSize('1k')}
                     className={`rounded-md px-3 py-2 text-sm font-semibold text-white ${datasetSize === '1k'
-                        ? 'bg-indigo-700 cursor-default'
-                        : 'bg-indigo-500 hover:bg-indigo-400'
+                      ? 'bg-indigo-700 cursor-default'
+                      : 'bg-indigo-500 hover:bg-indigo-400'
                       }`}
                   >
                     Load 1K Rows
@@ -332,8 +332,8 @@ export default function Auditor() {
                   <button
                     onClick={() => setDatasetSize('100k')}
                     className={`rounded-md px-3 py-2 text-sm font-semibold text-white ${datasetSize === '100k'
-                        ? 'bg-indigo-700 cursor-default'
-                        : 'bg-indigo-500 hover:bg-indigo-400'
+                      ? 'bg-indigo-700 cursor-default'
+                      : 'bg-indigo-500 hover:bg-indigo-400'
                       }`}
                   >
                     Load 100K Rows
@@ -341,8 +341,8 @@ export default function Auditor() {
                   <button
                     onClick={() => setDatasetSize('full')}
                     className={`rounded-md px-3 py-2 text-sm font-semibold text-white ${datasetSize === 'full'
-                        ? 'bg-indigo-700 cursor-default'
-                        : 'bg-indigo-500 hover:bg-indigo-400'
+                      ? 'bg-indigo-700 cursor-default'
+                      : 'bg-indigo-500 hover:bg-indigo-400'
                       }`}
                   >
                     Load All Rows
@@ -350,7 +350,6 @@ export default function Auditor() {
                 </div>
               </div>
 
-              {/* @TODO! Any cool stats to display? */}
               <div className="grid grid-cols-1 bg-gray-700/10 sm:grid-cols-2 lg:grid-cols-4">
                 {stats.map((stat, statIdx) => (
                   <div
@@ -373,9 +372,10 @@ export default function Auditor() {
             <div className="border-t border-white/10 pt-11">
               <h2 className="px-4 text-base font-semibold leading-7 text-white sm:px-6 lg:px-8">Latest activity</h2>
               {/* @TODO! 
-                - Implement virtualization to handle >1.5B rows efficiently
-                - Consider using react-virtual or similar library
-                - Current implementation only shows first page of results
+                - Handle >1.5B rows efficiently
+                - Pagination is just OK
+                - Virtualization is interesting
+                - Will a simple table be enough?!
               */}
               <div className="mt-6 overflow-hidden">
                 <table className="w-full border-collapse border-spacing-0">
