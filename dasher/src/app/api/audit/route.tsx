@@ -12,97 +12,62 @@ export async function GET(request: Request) {
     if (size !== 'sample') {
       try {
         let limit;
-        let message;
-
         switch (size) {
           case '1k':
             limit = 1000;
-            message = 'Showing 1,000 trades from QuestDB';
             break;
           case '100k':
             limit = 100000;
-            message = 'Showing 100,000 trades from QuestDB';
             break;
           case 'full':
             limit = 1500000000;
-            message = '@TODO: Implement a solution that can handle 1.5B rows efficiently';
             break;
           default:
             limit = 1000;
-            message = 'Showing 1,000 trades from QuestDB';
         }
 
         const query = encodeURIComponent(`SELECT * FROM trades LIMIT ${limit};`);
+        console.log(`Attempting QuestDB query with limit: ${limit}`);
         const response = await fetch(`${QUESTDB_URL}/exec?query=${query}`);
 
-        if (!response.ok) {
-          console.error('QuestDB Error:', await response.text());
-          return generateLargeDatasetResponse();
+        if (response.ok) {
+          console.log('QuestDB query successful');
+          const data = await response.json();
+          const items = data.dataset.map((row: any[]) => ({
+            symbol: row[0],
+            side: row[1].toUpperCase(),
+            price: parseFloat(row[2]),
+            amount: parseFloat(row[3]),
+            timestamp: row[4],
+          }));
+
+          return new Response(JSON.stringify({
+            items,
+            totalRows: data.count || items.length,
+            message: `Showing ${items.length} trades from QuestDB`,
+          }), {
+            status: 200,
+            headers: {
+              'Content-Type': 'application/json',
+              'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+              'Pragma': 'no-cache',
+              'Expires': '0',
+            },
+          });
+        } else {
+          console.log('QuestDB query failed, falling back to generated data');
         }
-
-        const data = await response.json();
-
-        const items = data.dataset.map((row: any[]) => ({
-          symbol: row[0],
-          side: row[1].toUpperCase(),
-          price: parseFloat(row[2]),
-          amount: parseFloat(row[3]),
-          timestamp: row[4],
-        }));
-
-        return new Response(JSON.stringify({
-          items,
-          totalRows: data.count || items.length,
-          message,
-        }), {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-          },
-        });
       } catch (error) {
-        console.error('QuestDB fetch error:', error);
-        return generateLargeDatasetResponse();
+        // Fall through to generateDataset
       }
     }
 
-    // Initial sample data with multiple records
+    // Handle sample data or fallback cases
+    const items = generateDataset(size === 'sample' ? '1k' : size);
     return new Response(JSON.stringify({
-      items: [
-        {
-          timestamp: '2024-01-23T11:00:00.000Z',
-          symbol: 'BTC-USD',
-          price: 42000.50,
-          amount: 1.23456,
-          side: 'BUY',
-        },
-        {
-          timestamp: '2024-01-23T11:00:01.000Z',
-          symbol: 'ETH-USD',
-          price: 2500.75,
-          amount: 10.5,
-          side: 'SELL',
-        },
-        {
-          timestamp: '2024-01-23T11:00:02.000Z',
-          symbol: 'SOL-USD',
-          price: 95.25,
-          amount: 100.0,
-          side: 'BUY',
-        },
-        {
-          timestamp: '2024-01-23T11:00:03.000Z',
-          symbol: 'BTC-USD',
-          price: 41998.75,
-          amount: 0.5,
-          side: 'SELL',
-        }
-      ],
-      totalRows: 4,
-      message: 'Sample data - use ?size=1k, ?size=100k, or ?size=full to load different datasets',
+      items,
+      totalRows: items.length,
+      message: `Generated ${items.length} sample records`,
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -118,22 +83,27 @@ export async function GET(request: Request) {
   }
 }
 
-// Helper function to generate large dataset response
-function generateLargeDatasetResponse() {
-  const sampleLargeDataset = Array.from({ length: 100000 }, (_, i) => ({
+function generateDataset(size: string) {
+  let length;
+  switch (size) {
+    case '1k':
+      length = 1000;
+      break;
+    case '100k':
+      length = 100000;
+      break;
+    case 'full':
+      length = 1500000000;
+      break;
+    default:
+      length = 1000;
+  }
+
+  return Array.from({ length }, (_, i) => ({
     timestamp: new Date(Date.now() - i * 1000).toISOString(),
     symbol: ['BTC-USD', 'ETH-USD', 'SOL-USD'][Math.floor(Math.random() * 3)],
     price: Math.random() * 50000,
     amount: Math.random() * 10,
     side: Math.random() > 0.5 ? 'BUY' : 'SELL',
   }));
-
-  return new Response(JSON.stringify({
-    items: sampleLargeDataset,
-    totalRows: 1500000000,
-    message: '@TODO: Implement a solution that can handle 1.5B rows efficiently',
-  }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
-  });
 }
