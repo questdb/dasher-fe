@@ -4,7 +4,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/api/:path*',  // Match all API routes
+        source: '/api/:path*',
         headers: [
           {
             key: 'Cache-Control',
@@ -21,10 +21,6 @@ const nextConfig = {
         ],
       },
     ]
-  },
-  experimental: {
-    // Disable fetch caching
-    fetchCache: false,
   },
 };
 
