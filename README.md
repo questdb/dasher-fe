@@ -94,11 +94,26 @@ To submit:
      git format-patch -1 HEAD --stdout > my-solution.patch
      ```
 
-6. **Submit your patch**
+6. **Compress the patch file**
+
+   To avoid issues with odd characters, please compress the file from a command-line environment:
+   
+   **Using `zip`:**
+   ```sh
+   zip my-solution.zip my-solution.patch
+   ```
+   **Using `tar`:**
+   ```sh
+   tar -czvf my-solution.tar.gz my-solution.patch
+   ```
+
+8. **Submit your patch**
    - Email us `my-solution.patch`!
 
 ### ⚠️ Important Notes
 - Please **do not** push your solution to a public repository
 - Ensure your patch file includes only necessary changes
+- Compression ensures we do not have any weird issues applying it
+- Avoid opening the patch file in a text editor, as this may alter the contents
 
 Good luck! 🚀
