@@ -57,6 +57,8 @@ There is also an **optional** [THOUGHTS.md](thoughts.md) page.
 
 As you go, feel free to write any interesting thoughts.
 
+If you got stuck (especially in the 1.5b case) you can indicate how you would have solved it with more time.
+
 If you have any questions, please reach out to us!
 
 ## Submission
