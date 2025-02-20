@@ -34,11 +34,11 @@ Your mission:
 
 The DOM will explode, and it looks like our table won't cut it.
 
-How can we improve this? Performance is key!
+How can we improve this?
 
 The API, view, and whatever else is yours to edit.
 
-You can direct real-time queries at the live [QuestDB demo instance](https://demo.questdb.io).
+Direct real-time queries at the live [QuestDB demo instance](https://demo.questdb.io).
 
 Be mindful of performance, efficiency, and failure when the queries returns a large data set!
 
